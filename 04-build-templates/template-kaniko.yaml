@@ -11,6 +11,15 @@ spec:
     default: /workspace/Dockerfile
 
   steps:
+  - name: check-registry-access
+    image: solsson/curl@sha256:523319afd39573746e8f5a7c98d4a6cd4b8cbec18b41eb30c8baa13ede120ce3
+    args:
+    - -v
+    - http://v2.registry.svc.cluster.local:5000/v2/
+    - -f
+    - --retry
+    -   "5"
+    - --retry-connrefused
   - name: build-and-push
     image: gcr.io/kaniko-project/executor:v0.3.0
     args:
