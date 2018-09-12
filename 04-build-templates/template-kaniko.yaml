@@ -16,3 +16,5 @@ spec:
     args:
     - --dockerfile=${DOCKERFILE}
     - --destination=${IMAGE}
+    - --insecure
+    - --verbosity=info
