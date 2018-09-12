@@ -4,8 +4,8 @@ metadata:
   name: kaniko
 spec:
   parameters:
-  - name: IMAGE
-    description: The name of the image to push
+  - name: IMAGE_NAMETAG
+    description: The name (and optional :tag) of the image, NOT prefixed by registry root URI
   - name: DOCKERFILE
     description: Path to the Dockerfile to build.
     default: /workspace/Dockerfile
@@ -43,6 +43,6 @@ spec:
     image: gcr.io/kaniko-project/executor@sha256:413fe14232a5f37f02a57758fe891993df3d58114ed948b00c9b044ed2f05f45
     args:
     - --dockerfile=${DOCKERFILE}
-    - --destination=${IMAGE}
+    - --destination=v2.registry.svc.cluster.local:5000/${IMAGE_NAMETAG}
     - --insecure
     - --verbosity=info
