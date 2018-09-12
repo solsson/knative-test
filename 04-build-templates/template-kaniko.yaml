@@ -16,7 +16,15 @@ spec:
     command:
     - /busybox/sh
     - -ce
-    - "while [ ! -f /tmp/confirm-resume ]; do echo 'pending manual work' && sleep 10; done"
+    - >
+      PARAM_DOCKERFILE=${DOCKERFILE};
+      PARAM_IMAGE=${IMAGE};
+
+      mkdir /workspace/selfcheck1;
+      echo "FROM alpine:3.8" > /workspace/selfcheck1/Dockerfile;
+      echo "RUN date > /build-date.txt" >> /workspace/selfcheck1/Dockerfile;
+      /kaniko/executor -c /workspace/selfcheck1 --no-push;
+      /kaniko/executor -c /workspace/selfcheck1 -d v2.registry.svc.cluster.local:5000/knative-test/selfcheck1 --insecure;
   - name: check-registry-access
     image: solsson/curl@sha256:523319afd39573746e8f5a7c98d4a6cd4b8cbec18b41eb30c8baa13ede120ce3
     args:
