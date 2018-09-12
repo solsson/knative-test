@@ -14,4 +14,4 @@ spec:
     - name: DOCKERFILE
       value: /workspace/dockerfile-with-run/Dockerfile
     - name: IMAGE
-      value: v2.registry.svc.cluster.local:5000/knative-build-test/dockerfile-with-run:kaniko
+      value: knative-build-test/dockerfile-with-run:kaniko

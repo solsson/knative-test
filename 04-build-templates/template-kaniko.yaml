@@ -11,6 +11,12 @@ spec:
     default: /workspace/Dockerfile
 
   steps:
+  - name: build-without-push
+    image: gcr.io/kaniko-project/executor@sha256:413fe14232a5f37f02a57758fe891993df3d58114ed948b00c9b044ed2f05f45
+    args:
+    - --dockerfile=${DOCKERFILE}
+    - --no-push
+    - --verbosity=info
   - name: check-registry-access
     image: solsson/curl@sha256:523319afd39573746e8f5a7c98d4a6cd4b8cbec18b41eb30c8baa13ede120ce3
     args:
